@@ -6,6 +6,10 @@ exports.up = function(knex) {
     table.string("username", 50).notNullable();
     table.string("email", 100);
     table.string("password", 100);
+    table
+      .integer("role_id")
+      .references("id")
+      .inTable("roles");
     table.timestamps(true, true);
   });
 };
