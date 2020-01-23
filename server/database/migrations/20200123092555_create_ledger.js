@@ -4,11 +4,11 @@ exports.up = function(knex) {
     table.decimal("budget_amount").defaultTo(0.0);
     table.decimal("actual_amount").defaultTo(0.0);
     table
-      .string("budget")
+      .integer("budget_id")
       .references("id")
       .inTable("budgets");
     table
-      .string("subcategory_id")
+      .integer("subcategory_id")
       .references("id")
       .inTable("users");
     table.timestamps(true, true);

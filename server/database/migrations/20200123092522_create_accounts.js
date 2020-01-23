@@ -3,7 +3,7 @@ exports.up = function(knex) {
     table.increments();
     table.string("account_name").notNullable();
     table
-      .string("created_by")
+      .integer("created_by")
       .references("id")
       .inTable("users")
       .onDelete("CASCADE");

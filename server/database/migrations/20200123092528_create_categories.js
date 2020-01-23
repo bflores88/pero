@@ -3,12 +3,12 @@ exports.up = function(knex) {
     table.increments();
     table.string("category_name").notNullable();
     table
-      .string("account_id")
+      .integer("account_id")
       .references("id")
       .inTable("accounts")
       .onDelete("CASCADE");
     table
-      .string("created_by")
+      .integer("created_by")
       .references("id")
       .inTable("users")
       .onDelete("CASCADE");
