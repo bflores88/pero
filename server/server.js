@@ -17,6 +17,9 @@ const bcrypt = require("bcryptjs");
 const User = require("./database/models/User");
 
 const users = require("./routes/users");
+const roles = require("./routes/roles");
+const accounts = require("./routes/accounts");
+const categories = require("./routes/categories");
 
 app.use(bodyParser.json());
 app.use(
@@ -101,6 +104,9 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.use("/api/users", users);
+app.use("/api/roles", roles);
+app.use("/api/accounts", accounts);
+app.use("/api/categories", categories);
 
 app.get("/", (req, res) => {
   res.status(200).send("smoke test");

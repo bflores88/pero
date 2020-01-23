@@ -8,6 +8,13 @@ class Category extends bookshelf.Model {
     return "categories";
   }
 
+  initialize() {
+    this.on("creating", model => {
+      console.log(model);
+      throw new Error("Break");
+    });
+  }
+
   accounts() {
     this.belongsTo("Account", "account_id");
   }

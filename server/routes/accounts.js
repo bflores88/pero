@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const Role = require("../database/models/Role");
+const Account = require("../database/models/Account");
 
 router.route("/").get((req, res) => {
-  Role.fetchAll()
+  Account.fetchAll()
     .then(result => {
       return res.status(200).json(result);
     })
