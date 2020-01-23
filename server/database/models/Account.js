@@ -16,4 +16,4 @@ class Account extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.Model("Account", Account);
+module.exports = bookshelf.model("Account", Account);

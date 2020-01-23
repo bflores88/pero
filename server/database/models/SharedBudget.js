@@ -16,4 +16,4 @@ class SharedBudget extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.Model("SharedBudget", SharedBudget);
+module.exports = bookshelf.model("SharedBudget", SharedBudget);

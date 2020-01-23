@@ -16,4 +16,4 @@ class Subcategory extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.Model("Subcategory", Subcategory);
+module.exports = bookshelf.model("Subcategory", Subcategory);

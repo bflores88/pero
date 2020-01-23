@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const saltRounds = 12;
+
 exports.seed = function(knex) {
   // Deletes ALL existing entries
   return knex("users")
@@ -11,7 +14,7 @@ exports.seed = function(knex) {
           last_name: "Scott",
           username: "admin01",
           email: "admin@pero.com",
-          password: "abc123",
+          password: bcrypt.hashSync("password", saltRounds),
           role_id: 1
         },
         {
@@ -20,7 +23,7 @@ exports.seed = function(knex) {
           last_name: "Halpert",
           username: "big_tuna",
           email: "jim_halpert@dd.com",
-          password: "abc123",
+          password: bcrypt.hashSync("password", saltRounds),
           role_id: 3
         },
         {
@@ -29,7 +32,7 @@ exports.seed = function(knex) {
           last_name: "Schrute",
           username: "mr_poop",
           email: "dwight_schrute@dd.com",
-          password: "abc123",
+          password: bcrypt.hashSync("password", saltRounds),
           role_id: 2
         }
       ]);

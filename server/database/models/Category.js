@@ -21,4 +21,4 @@ class Category extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.Model("Category", Category);
+module.exports = bookshelf.model("Category", Category);

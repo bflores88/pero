@@ -11,4 +11,4 @@ class Role extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.Model("Role", Role);
+module.exports = bookshelf.model("Role", Role);

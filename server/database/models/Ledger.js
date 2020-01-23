@@ -16,4 +16,4 @@ class Ledger extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.Model("Ledger", Ledger);
+module.exports = bookshelf.model("Ledger", Ledger);

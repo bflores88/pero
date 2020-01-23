@@ -16,4 +16,4 @@ class Budget extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.Model("Budget", Budget);
+module.exports = bookshelf.model("Budget", Budget);
