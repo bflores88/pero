@@ -2,6 +2,7 @@ const bookshelf = require("../bookshelf");
 
 require("./User");
 require("./Budget");
+const validateModel = require("../../utilities/validateModel");
 class SharedBudget extends bookshelf.Model {
   get tableName() {
     return "shared_budgets";
@@ -9,6 +10,17 @@ class SharedBudget extends bookshelf.Model {
 
   get hasTimestamps() {
     return true;
+  }
+
+  initialize() {
+    const sharedBudgetModel = {
+      user_id: userId => userId > 0,
+      budget_id: budgetId => budgetId > 0
+    };
+
+    this.on("creating", model => {
+      validateModel(sharedBudgetModel, model);
+    });
   }
 
   budgets() {

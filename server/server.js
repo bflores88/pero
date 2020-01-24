@@ -23,6 +23,7 @@ const accounts = require("./routes/accounts");
 const categories = require("./routes/categories");
 const subcategories = require("./routes/subcategories");
 const budgets = require("./routes/budgets");
+const sharedBudgets = require("./routes/sharedBudgets");
 
 app.use(bodyParser.json());
 app.use(
@@ -113,6 +114,7 @@ app.use("/api/accounts", accounts);
 app.use("/api/categories", categories);
 app.use("/api/subcategories", subcategories);
 app.use("/api/budgets", budgets);
+app.use("/api/sharedbudgets", sharedBudgets);
 
 app.get("/", (req, res) => {
   res.status(200).send("smoke test");
