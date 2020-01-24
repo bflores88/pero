@@ -21,6 +21,7 @@ const roles = require("./routes/roles");
 const accounts = require("./routes/accounts");
 const categories = require("./routes/categories");
 const subcategories = require("./routes/subcategories");
+const budgets = require("./routes/budgets");
 
 app.use(bodyParser.json());
 app.use(
@@ -109,6 +110,7 @@ app.use("/api/roles", roles);
 app.use("/api/accounts", accounts);
 app.use("/api/categories", categories);
 app.use("/api/subcategories", subcategories);
+app.use("/api/budgets", budgets);
 
 app.get("/", (req, res) => {
   res.status(200).send("smoke test");

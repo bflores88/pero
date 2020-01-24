@@ -8,6 +8,10 @@ class Category extends bookshelf.Model {
     return "categories";
   }
 
+  get hasTimestamps() {
+    return true;
+  }
+
   initialize() {
     // Need to handle DELETE ==> Deleting categories will delete subcategories referencing cats
     this.on("creating", model => {

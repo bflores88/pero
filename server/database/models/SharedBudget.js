@@ -7,6 +7,10 @@ class SharedBudget extends bookshelf.Model {
     return "shared_budgets";
   }
 
+  get hasTimestamps() {
+    return true;
+  }
+
   budgets() {
     this.belongsTo("Budget", "budget");
   }

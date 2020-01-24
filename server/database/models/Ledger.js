@@ -7,6 +7,10 @@ class Ledger extends bookshelf.Model {
     return "ledger";
   }
 
+  get hasTimestamps() {
+    return true;
+  }
+
   subcategories() {
     this.belongsTo("Subcategory", "subcategory_id");
   }

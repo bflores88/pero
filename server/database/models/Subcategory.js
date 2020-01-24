@@ -7,6 +7,10 @@ class Subcategory extends bookshelf.Model {
     return "subcategories";
   }
 
+  get hasTimestamps() {
+    return true;
+  }
+
   initialize() {
     this.on("creating", model => {
       const subcategoryModel = {

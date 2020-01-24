@@ -7,6 +7,10 @@ class Account extends bookshelf.Model {
     return "accounts";
   }
 
+  get hasTimestamps() {
+    return true;
+  }
+
   categories() {
     return this.hasMany("Category", "account_id");
   }

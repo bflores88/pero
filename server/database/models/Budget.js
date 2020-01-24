@@ -7,6 +7,10 @@ class Budget extends bookshelf.Model {
     return "budgets";
   }
 
+  get hasTimestamps() {
+    return true;
+  }
+
   users() {
     return this.belongsTo("User", "user_id");
   }

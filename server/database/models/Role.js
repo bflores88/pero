@@ -6,6 +6,10 @@ class Role extends bookshelf.Model {
     return "roles";
   }
 
+  get hasTimestamps() {
+    return true;
+  }
+
   users() {
     return this.hasMany("User", "role_id");
   }
