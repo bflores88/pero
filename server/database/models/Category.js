@@ -3,6 +3,7 @@ const bookshelf = require("../bookshelf");
 require("./User");
 require("./Account");
 require("./Subcategory");
+const validateModel = require("../../utilities/validateModel");
 class Category extends bookshelf.Model {
   get tableName() {
     return "categories";
@@ -21,15 +22,7 @@ class Category extends bookshelf.Model {
         created_by: userId => userId > 0
       };
 
-      for (let key in categoryModel) {
-        if (!model.changed[key]) {
-          throw new Error(`Invalid model -- Missing ${key}`);
-        }
-
-        if (!categoryModel[key](model.changed[key])) {
-          throw new Error(`Please enter a valid ${key}`);
-        }
-      }
+      validateModel(categoryModel, model);
     });
   }
 

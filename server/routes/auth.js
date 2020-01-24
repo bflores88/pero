@@ -60,6 +60,7 @@ router.route("/login").post((req, res, next) => {
         return res.json({ error: info.message });
       } else {
         req.logIn(user, () => {});
+        delete user.password; // removes sending pw back to client
         return res.json(user);
       }
     }
@@ -67,7 +68,7 @@ router.route("/login").post((req, res, next) => {
 });
 
 router.route("/logout").get((req, res) => {
-  // console.log('Logged Out');
+  console.log("Logged Out");
   req.logout(); // if a user is logged in, req.logout will remove the user property from the req and terminate the session if there is one
   return res.json(null);
 });

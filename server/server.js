@@ -16,6 +16,7 @@ const redisClient = redis.createClient(process.env.REDIS_URL);
 const bcrypt = require("bcryptjs");
 const User = require("./database/models/User");
 
+const auth = require("./routes/auth");
 const users = require("./routes/users");
 const roles = require("./routes/roles");
 const accounts = require("./routes/accounts");
@@ -105,6 +106,7 @@ passport.deserializeUser(function(user, done) {
   });
 });
 
+app.use("/api/auth", auth);
 app.use("/api/users", users);
 app.use("/api/roles", roles);
 app.use("/api/accounts", accounts);
