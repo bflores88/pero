@@ -9,9 +9,23 @@ class Category extends bookshelf.Model {
   }
 
   initialize() {
+    // Need to handle DELETE ==> Deleting categories will delete subcategories referencing cats
     this.on("creating", model => {
-      console.log(model);
-      throw new Error("Break");
+      const categoryModel = {
+        category_name: catName => catName.length > 3,
+        account_id: accountId => accountId > 0,
+        created_by: userId => userId > 0
+      };
+
+      for (let key in categoryModel) {
+        if (!model.changed[key]) {
+          throw new Error(`Invalid model -- Missing ${key}`);
+        }
+
+        if (!categoryModel[key](model.changed[key])) {
+          throw new Error(`Please enter a valid ${key}`);
+        }
+      }
     });
   }
 
