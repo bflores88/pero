@@ -10,7 +10,7 @@ exports.up = function(knex) {
     table
       .integer("subcategory_id")
       .references("id")
-      .inTable("users");
+      .inTable("subcategories");
     table.timestamps(true, true);
   });
 };

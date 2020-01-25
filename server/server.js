@@ -24,6 +24,7 @@ const categories = require("./routes/categories");
 const subcategories = require("./routes/subcategories");
 const budgets = require("./routes/budgets");
 const sharedBudgets = require("./routes/sharedBudgets");
+const ledger = require("./routes/ledger");
 
 app.use(bodyParser.json());
 app.use(
@@ -115,6 +116,7 @@ app.use("/api/categories", categories);
 app.use("/api/subcategories", subcategories);
 app.use("/api/budgets", budgets);
 app.use("/api/sharedbudgets", sharedBudgets);
+app.use("/api/ledger", ledger);
 
 app.get("/", (req, res) => {
   res.status(200).send("smoke test");

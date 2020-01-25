@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const Ledger = require("../database/models/Ledger");
+const Account = require("../database/models/Account");
 
 router.route("/").get((req, res) => {
-  Ledger.fetchAll()
+  Account.fetchAll()
     .then(result => {
       return res.status(200).json(result);
     })
