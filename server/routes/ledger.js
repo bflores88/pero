@@ -13,6 +13,7 @@ router.route("/").get((req, res) => {
       "budgets.budget_name",
       "budgets.description",
       "budgets.user_id as user_id",
+      "budgets.is_shared",
       "subcategories.id as subcategory_id",
       "subcategories.subcategory_name",
       "categories.id as category_id",
@@ -31,22 +32,43 @@ router.route("/").get((req, res) => {
       result = result.toJSON();
 
       // Regroup could be used on client side to structure the data for UI purposes
-      let regroup = result.reduce((p, c) => {
-        p[`budget_id_${c.budget_id}`] = p[`budget_id_${c.budget_id}`] || [];
-        p[`budget_id_${c.budget_id}`].push(c);
+      let regroup = result.reduce((p, c, idx) => {
+        if (!p.length || p[p.length - 1].budget_id !== c.budget_id) {
+          const newBudget = {
+            budget_id: c.budget_id,
+            budget_name: c.budget_name,
+            description: c.description,
+            is_shared: c.is_shared,
+            categories: []
+          };
+          p.push(newBudget);
+        }
+        delete c.budget_id;
+        delete c.budget_name;
+        delete c.description;
+        delete c.is_shared;
+        p[p.length - 1].categories.push(c);
         return p;
-      }, {});
+      }, []);
 
-      for (let key in regroup) {
-        regroup[key] = regroup[key].reduce((p, c) => {
-          p[`category_id_${c.category_id}`] =
-            p[`category_id_${c.category_id}`] || [];
-          p[`category_id_${c.category_id}`].push(c);
+      regroup.forEach((budget, idx) => {
+        regroup[idx].categories = budget.categories.reduce((p, c) => {
+          if (!p.length || p[p.length - 1].category_id !== c.category_id) {
+            const newCategory = {
+              category_id: c.category_id,
+              category_name: c.category_name,
+              subcategories: []
+            };
+            p.push(newCategory);
+          }
+          delete c.category_id;
+          delete c.category_name;
+          p[p.length - 1].subcategories.push(c);
           return p;
-        }, {});
-      }
+        }, []);
+      });
 
-      return res.status(200).send(result);
+      return res.status(200).send(regroup);
     })
     .catch(error => {
       res.send(error);
