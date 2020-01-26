@@ -17,15 +17,13 @@ router.route("/").get((req, res) => {
       "subcategories.id as subcategory_id",
       "subcategories.subcategory_name",
       "categories.id as category_id",
-      "categories.category_name"
+      "categories.category_name",
+      "accounts.id as account_id"
     )
       .innerJoin("budgets", "ledger.budget_id", "budgets.id")
       .innerJoin("subcategories", "ledger.subcategory_id", "subcategories.id")
-      .fullOuterJoin(
-        "categories",
-        "subcategories.category_id",
-        "categories.id"
-      );
+      .fullOuterJoin("categories", "subcategories.category_id", "categories.id")
+      .fullOuterJoin("accounts", "categories.account_id", "accounts.id");
   })
     .fetchAll()
     .then(result => {
@@ -57,12 +55,14 @@ router.route("/").get((req, res) => {
             const newCategory = {
               category_id: c.category_id,
               category_name: c.category_name,
+              account_id: c.account_id,
               subcategories: []
             };
             p.push(newCategory);
           }
           delete c.category_id;
           delete c.category_name;
+          delete c.account_id;
           p[p.length - 1].subcategories.push(c);
           return p;
         }, []);

@@ -3,7 +3,7 @@ import "./Budget.scss";
 
 class Budget extends Component {
   render() {
-    return <div>Budget Component</div>;
+    return <div className="Card">Budget Component</div>;
   }
 }
 
