@@ -26,24 +26,60 @@ class BudgetCategory extends Component {
   };
 
   render() {
-    const subcategories = this.props.category.subcategories.map(cat => (
-      <BudgetItem subcategory={cat} />
-    ));
+    let subcategories = null;
+    if (this.props.category) {
+      subcategories = this.props.category.subcategories.map(cat => (
+        <BudgetItem key={cat.subcategory_id} subcategory={cat} />
+      ));
+    }
 
     return (
-      <div className="category">
-        <h4>
-          <input
-            className="category-name"
-            type="text"
-            name="category_name"
-            value={this.state.category_name}
-            placeholder={this.state.category_name}
-          />
-        </h4>
-        {subcategories}
-      </div>
+      <>
+        <div className="category">
+          <table>
+            <tr>
+              <th className="cat-name">
+                <input
+                  className="category-name"
+                  type="text"
+                  name="category_name"
+                  value={this.state.category_name}
+                  placeholder={this.state.category_name}
+                  onChange={this.onChangeHandler}
+                />
+              </th>
+              <th className="amount">
+                <p className="budgeted">Budgeted</p>
+              </th>
+              <th className="amount">
+                <p className="actual">Actual</p>
+              </th>
+            </tr>
+            {subcategories}
+          </table>
+        </div>
+      </>
     );
+
+    // return (
+    //   <>
+    //   <div className="category">
+    //       <div className="category-header">
+    //         <input
+    //           className="category-name"
+    //           type="text"
+    //           name="category_name"
+    //           value={this.state.category_name}
+    //           placeholder={this.state.category_name}
+    //           onChange={this.onChangeHandler}
+    //         />
+    //         <span className="budgeted">Budgeted</span>
+    //         <span className="actual">Actual</span>
+    //       </div>
+    //       <div>{subcategories}</div>
+    //     </div>
+    //   </>
+    // );
   }
 }
 

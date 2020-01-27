@@ -1,0 +1,48 @@
+.category {
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 3px 5px 5px 3px rgba(196, 196, 196, 0.2);
+  padding: 10px 20px;
+
+  table {
+    table-layout: fixed;
+    width: 100%;
+    padding: 0;
+
+    th,
+    tr {
+      padding: 0;
+      margin: 0;
+    }
+
+    th.cat-name {
+      width: 50%;
+      text-align: start;
+    }
+
+    th.amount {
+      width: 25%;
+      text-align: right;
+    }
+  }
+
+  .category-header {
+    display: flex;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #3f5e5a;
+  }
+  .category-name {
+    font-size: 1.2rem;
+    flex: 2;
+    align-self: flex-end;
+  }
+  span {
+    font-size: 0.8rem;
+    text-align: right;
+    flex: 1;
+    align-self: flex-end;
+  }
+}

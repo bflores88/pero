@@ -21,37 +21,84 @@ class BudgetItem extends Component {
   }
 
   onChangeHandler = e => {
-    console.log(e);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  onChangeDollarHandler = e => {
+    let newAmount = e.target.value;
+    if (Number(newAmount) || newAmount === "") {
+      if (Number(newAmount) % 1 > 0) {
+        let decimalIndex = newAmount.indexOf(".");
+        newAmount = newAmount.slice(0, decimalIndex + 3);
+      }
+      this.setState({
+        [e.target.name]: newAmount || ""
+      });
+    }
+  };
+
   render() {
     return (
-      <div className="budget-item">
-        <input
-          className="budget-item-name"
-          type="text"
-          name="subcategory_name"
-          value={this.state.subcategory_name}
-          placeholder={this.state.subcategory_name}
-        />
-        <input
-          className="amount budgeted"
-          type="number"
-          name="budget_amount"
-          value={this.state.budget_amount}
-          placeholder={this.state.budget_amount}
-        />
-        <input
-          className="amount actual"
-          type="number"
-          name="actual_amount"
-          value={this.state.actual_amount}
-          placeholder={this.state.actual_amount}
-        />
-      </div>
+      <tr className="budget-item">
+        <td className="item-name">
+          <input
+            className="item-detail budget-item-name"
+            type="text"
+            name="subcategory_name"
+            value={this.state.subcategory_name}
+            placeholder={this.state.subcategory_name}
+            onChange={this.onChangeHandler}
+          />
+        </td>
+        <td className="item-amount">
+          <input
+            className="item-detail amount budgeted"
+            type="text"
+            name="budget_amount"
+            value={this.state.budget_amount}
+            placeholder={this.state.budget_amount}
+            onChange={this.onChangeDollarHandler}
+          />
+        </td>
+        <td className="item-amount">
+          <input
+            className="item-detail amount actual"
+            type="text"
+            name="actual_amount"
+            value={this.state.actual_amount}
+            placeholder={this.state.actual_amount}
+            onChange={this.onChangeDollarHandler}
+          />
+        </td>
+      </tr>
+      // <div className="budget-item">
+      //   <input
+      //     className="item-detail budget-item-name"
+      //     type="text"
+      //     name="subcategory_name"
+      //     value={this.state.subcategory_name}
+      //     placeholder={this.state.subcategory_name}
+      //     onChange={this.onChangeHandler}
+      //   />
+      //   <input
+      //     className="item-detail amount budgeted"
+      //     type="text"
+      //     name="budget_amount"
+      //     value={this.state.budget_amount}
+      //     placeholder={this.state.budget_amount}
+      //     onChange={this.onChangeDollarHandler}
+      //   />
+      //   <input
+      //     className="item-detail amount actual"
+      //     type="text"
+      //     name="actual_amount"
+      //     value={this.state.actual_amount}
+      //     placeholder={this.state.actual_amount}
+      //     onChange={this.onChangeDollarHandler}
+      //   />
+      // </div>
     );
   }
 }

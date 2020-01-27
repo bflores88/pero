@@ -4,6 +4,7 @@ const router = express.Router();
 const Ledger = require("../database/models/Ledger");
 
 router.route("/").get((req, res) => {
+  console.log(req.user);
   Ledger.query(qb => {
     qb.select(
       "ledger.id as ledger_id",
@@ -20,6 +21,7 @@ router.route("/").get((req, res) => {
       "categories.category_name",
       "accounts.id as account_id"
     )
+      .where("budgets.user_id", req.user.id)
       .innerJoin("budgets", "ledger.budget_id", "budgets.id")
       .innerJoin("subcategories", "ledger.subcategory_id", "subcategories.id")
       .fullOuterJoin("categories", "subcategories.category_id", "categories.id")

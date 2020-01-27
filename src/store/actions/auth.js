@@ -1,5 +1,4 @@
 import * as actionTypes from "./actionTypes";
-import API_ROOT from "../../api-config";
 
 export const authStart = () => {
   return {
@@ -10,7 +9,7 @@ export const authStart = () => {
 export const login = credentials => {
   return dispatch => {
     dispatch(authStart());
-    return fetch(`${API_ROOT}/api/auth/login`, {
+    return fetch(`/api/auth/login`, {
       method: "POST",
       body: JSON.stringify(credentials),
       headers: { "Content-Type": "application/json" }
@@ -24,7 +23,6 @@ export const login = credentials => {
       })
       .then(body => {
         if (body.error) {
-          console.log("error");
           return dispatch({
             type: actionTypes.AUTH_FAIL,
             error: body.error

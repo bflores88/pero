@@ -61,6 +61,7 @@ router.route("/login").post((req, res, next) => {
       } else {
         req.logIn(user, () => {});
         delete user.password; // removes sending pw back to client
+        console.log("Auth Success!");
         return res.json(user);
       }
     }

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import "./Budget.scss";
 
+import { updateObject } from "../../shared/utility";
+
+import BudgetCategory from "./BudgetCategory";
+
 class Budget extends Component {
   state = {
     budget_id: 0,
@@ -10,22 +14,44 @@ class Budget extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      budget_id: this.props.budget_id,
-      budget_name: this.props.budget_name,
-      description: this.props.description,
-      is_shared: this.props.is_shared
-    });
+    const updatedState = {
+      budget_id: this.props.budget.budget_id,
+      budget_name: this.props.budget.budget_name,
+      description: this.props.budget.description,
+      is_shared: this.props.budget.is_shared
+    };
+
+    this.setState(updatedState);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.budget !== prevProps.budget) {
+      const updatedState = {
+        budget_id: this.props.budget.budget_id,
+        budget_name: this.props.budget.budget_name,
+        description: this.props.budget.description,
+        is_shared: this.props.budget.is_shared
+      };
+
+      this.setState(updatedState);
+    }
   }
 
   onChangeHandler = e => {
-    console.log(e);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
   render() {
+    let categories = null;
+    if (this.props.budget) {
+      categories = this.props.budget.categories.map(category => {
+        return (
+          <BudgetCategory key={category.category_id} category={category} />
+        );
+      });
+    }
     return (
       <div className="budget">
         <h3>
@@ -35,6 +61,7 @@ class Budget extends Component {
             name="budget_name"
             value={this.state.budget_name}
             placeholder={this.state.budget_name || "Budget Name"}
+            onChange={this.onChangeHandler}
           />
         </h3>
         <summary>
@@ -44,8 +71,10 @@ class Budget extends Component {
             name="description"
             value={this.state.description}
             placeholder={this.state.description || "Add description"}
+            onChange={this.onChangeHandler}
           />
         </summary>
+        {categories}
       </div>
     );
   }

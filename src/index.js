@@ -10,8 +10,12 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import authReducer from "./store/reducers/auth";
+import budgetReducer from "./store/reducers/budget";
 
-const rootReducer = combineReducers({ auth: authReducer });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  budget: budgetReducer
+});
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"

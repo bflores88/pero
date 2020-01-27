@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 import AuthInput from "../../../components/UI/AuthInput";
+import { updateObject } from "../../../shared/utility";
 import "./Login.scss";
 
 class Login extends Component {
@@ -32,16 +33,21 @@ class Login extends Component {
     }
   };
 
-  onChangeHandler = e => {
-    this.setState({
-      [e.target.name]: e.target.value
+  inputChangedHandler = (event, dataName) => {
+    const updatedLoginData = updateObject(this.state.loginData, {
+      [dataName]: updateObject(this.state.loginData[dataName], {
+        value: event.target.value
+      })
     });
+
+    this.setState({ loginData: updatedLoginData });
   };
 
   onSubmit = e => {
     e.preventDefault();
     const data = {
-      ...this.state
+      username: this.state.loginData.username.value,
+      password: this.state.loginData.password.value
     };
     this.props.login(data);
   };

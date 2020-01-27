@@ -13,10 +13,11 @@
 .input-element {
   outline: none;
   border: none;
-  border-bottom: 1px dotted #ccc;
-  background-color: white;
+  border-bottom: 1px dashed #353831;
+  background-color: #eeeeee;
+  border-radius: 3px;
   font: inherit;
-  padding: 6px 10px;
+  padding: 10px 10px;
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -25,7 +26,7 @@
 
 .input-element:focus {
   outline: none;
-  background-color: #eeeeee;
+  background-color: lighten(#3f5e5a, 60);
 }
 
 .invalid {
