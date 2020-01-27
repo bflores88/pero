@@ -15,6 +15,7 @@ const RedisStore = require("connect-redis")(session);
 const redisClient = redis.createClient(process.env.REDIS_URL);
 const bcrypt = require("bcryptjs");
 const User = require("./database/models/User");
+const cors = require("cors");
 
 const auth = require("./routes/auth");
 const users = require("./routes/users");
@@ -32,7 +33,8 @@ app.use(
     extended: true
   })
 );
-// app.use(express.static("public"));
+app.use(cors());
+app.use(express.static("public"));
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),

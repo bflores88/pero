@@ -54,10 +54,10 @@ router.route("/register").post((req, res) => {
 router.route("/login").post((req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
-      return res.json(err);
+      return res.status(400).json(err);
     } else {
       if (!user) {
-        return res.json({ error: info.message });
+        return res.status(400).json({ error: info.message });
       } else {
         req.logIn(user, () => {});
         delete user.password; // removes sending pw back to client

@@ -9,7 +9,9 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-const rootReducer = combineReducers({});
+import authReducer from "./store/reducers/auth";
+
+const rootReducer = combineReducers({ auth: authReducer });
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"

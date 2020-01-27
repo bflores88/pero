@@ -3,7 +3,7 @@ import "./Dashboard.scss";
 
 class Dashboard extends Component {
   render() {
-    return <div>Dashboard Component</div>;
+    return <div className="dashboard">Dashboard Component</div>;
   }
 }
 
