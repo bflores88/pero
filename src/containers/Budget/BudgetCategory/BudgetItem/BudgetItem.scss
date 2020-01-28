@@ -3,7 +3,11 @@ tr.budget-item {
   // flex-direction: row;
   width: 100%;
   padding: 0;
-  margin: 0; // margin-top: 15px;
+
+  td {
+    height: 3rem;
+  }
+
   // .budget-item-name {
   //   flex: 2;
   // }
@@ -22,9 +26,22 @@ tr.budget-item {
 
   td.item-name {
     width: 50%;
+
+    .budget-item-name {
+      width: 78%;
+    }
   }
 
   td.item-amount {
     width: 25%;
+  }
+
+  .show-edit {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .hide-edit {
+    display: none;
   }
 }

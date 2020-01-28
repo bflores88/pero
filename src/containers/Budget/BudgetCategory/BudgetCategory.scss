@@ -11,6 +11,11 @@
     table-layout: fixed;
     width: 100%;
     padding: 0;
+    border-collapse: collapse;
+
+    tr.header-border th {
+      border-bottom: 1px solid #3f5e5a;
+    }
 
     th,
     tr {
@@ -29,20 +34,38 @@
     }
   }
 
-  .category-header {
-    display: flex;
-    padding-bottom: 3px;
-    border-bottom: 1px solid #3f5e5a;
-  }
   .category-name {
     font-size: 1.2rem;
+    font-weight: 800;
     flex: 2;
     align-self: flex-end;
+    color: #018786;
   }
-  span {
+  .actual,
+  .budgeted {
     font-size: 0.8rem;
     text-align: right;
     flex: 1;
     align-self: flex-end;
+  }
+
+  .new-item {
+    color: #1bc771;
+    height: 2.5rem;
+  }
+
+  .new-item-data {
+    width: 100%;
+  }
+}
+
+.new-category {
+  color: #aaaaaa;
+  input {
+    color: #aaa;
+  }
+
+  .new-item {
+    color: #aaa;
   }
 }

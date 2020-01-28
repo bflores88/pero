@@ -7,79 +7,81 @@ class BudgetCategory extends Component {
   state = {
     account_id: 0,
     category_id: 0,
-    category_name: ""
+    category_name: "New Category",
+    subcategories: []
   };
 
   componentDidMount() {
-    this.setState({
-      account_id: this.props.category.account_id,
-      category_id: this.props.category.category_id,
-      category_name: this.props.category.category_name
-    });
+    if (this.props.category) {
+      for (let key in this.props.category) {
+        this.setState({
+          [key]: this.props.category[key]
+        });
+      }
+    }
   }
 
   onChangeHandler = e => {
-    console.log(e);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  onAddSubcategory = e => {
+    e.preventDefault();
+    let newSubcategories = [...this.state.subcategories];
+    newSubcategories.push({
+      subcategory: { subcategory_name: "new item" }
+    });
+
+    this.setState(prevState => ({
+      subcategories: newSubcategories
+    }));
+  };
+
   render() {
     let subcategories = null;
-    if (this.props.category) {
-      subcategories = this.props.category.subcategories.map(cat => (
-        <BudgetItem key={cat.subcategory_id} subcategory={cat} />
+    if (this.state.subcategories) {
+      subcategories = this.state.subcategories.map((cat, idx) => (
+        <BudgetItem key={idx} subcategory={cat} />
       ));
     }
 
+    let categoryClass =
+      this.state.category_id > 0 ? "category" : "category new-category";
+
     return (
       <>
-        <div className="category">
+        <div className={categoryClass}>
           <table>
-            <tr>
-              <th className="cat-name">
-                <input
-                  className="category-name"
-                  type="text"
-                  name="category_name"
-                  value={this.state.category_name}
-                  placeholder={this.state.category_name}
-                  onChange={this.onChangeHandler}
-                />
-              </th>
-              <th className="amount">
-                <p className="budgeted">Budgeted</p>
-              </th>
-              <th className="amount">
-                <p className="actual">Actual</p>
-              </th>
-            </tr>
-            {subcategories}
+            <thead>
+              <tr className="header-border">
+                <th className="cat-name">
+                  <input
+                    className="category-name"
+                    type="text"
+                    name="category_name"
+                    value={this.state.category_name}
+                    placeholder={this.state.category_name}
+                    onChange={this.onChangeHandler}
+                  />
+                </th>
+                <th className="amount">
+                  <p className="budgeted">Budgeted</p>
+                </th>
+                <th className="amount">
+                  <p className="actual">Actual</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>{subcategories}</tbody>
           </table>
+          <button className="new new-item-btn" onClick={this.onAddSubcategory}>
+            + new item
+          </button>
         </div>
       </>
     );
-
-    // return (
-    //   <>
-    //   <div className="category">
-    //       <div className="category-header">
-    //         <input
-    //           className="category-name"
-    //           type="text"
-    //           name="category_name"
-    //           value={this.state.category_name}
-    //           placeholder={this.state.category_name}
-    //           onChange={this.onChangeHandler}
-    //         />
-    //         <span className="budgeted">Budgeted</span>
-    //         <span className="actual">Actual</span>
-    //       </div>
-    //       <div>{subcategories}</div>
-    //     </div>
-    //   </>
-    // );
   }
 }
 

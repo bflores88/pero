@@ -5,24 +5,35 @@ class BudgetItem extends Component {
   state = {
     ledger_id: 0,
     subcategory_id: 0,
-    subcategory_name: "",
-    budget_amount: 0,
-    actual_amount: 0
+    subcategory_name: "New item",
+    budget_amount: 0.0,
+    actual_amount: 0.0,
+    itemTimeOut: { current: null },
+    budgetTimeout: { current: null },
+    actualTimeout: { current: null }
   };
 
   componentDidMount() {
-    this.setState({
-      ledger_id: this.props.subcategory.ledger_id,
-      subcategory_id: this.props.subcategory.subcategory_id,
-      subcategory_name: this.props.subcategory.subcategory_name,
-      budget_amount: this.props.subcategory.budget_amount,
-      actual_amount: this.props.subcategory.actual_amount
-    });
+    if (this.props.subcategory) {
+      for (let key in this.props.subcategory) {
+        this.setState({
+          [key]: this.props.subcategory[key]
+        });
+      }
+    }
   }
 
   onChangeHandler = e => {
+    const value = e.target.value;
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: value
+    });
+
+    clearTimeout(this.state.itemTimeOut.current);
+
+    // save to db here
+    this.setState({
+      itemTimeOut: { current: setTimeout(() => console.log(value), 1000) }
     });
   };
 
@@ -33,8 +44,29 @@ class BudgetItem extends Component {
         let decimalIndex = newAmount.indexOf(".");
         newAmount = newAmount.slice(0, decimalIndex + 3);
       }
+
       this.setState({
         [e.target.name]: newAmount || ""
+      });
+    }
+
+    if (e.target.name === "budget_amount") {
+      clearTimeout(this.state.budgetTimeout.current);
+
+      // save to db here
+      this.setState({
+        budgetTimeout: {
+          current: setTimeout(() => console.log(newAmount), 1000)
+        }
+      });
+    } else {
+      clearTimeout(this.state.actualTimeout.current);
+
+      // save to db here
+      this.setState({
+        actualTimeout: {
+          current: setTimeout(() => console.log(newAmount), 1000)
+        }
       });
     }
   };
@@ -48,7 +80,7 @@ class BudgetItem extends Component {
             type="text"
             name="subcategory_name"
             value={this.state.subcategory_name}
-            placeholder={this.state.subcategory_name}
+            placeholder={this.state.subcategory_name || " item name"}
             onChange={this.onChangeHandler}
           />
         </td>
@@ -73,32 +105,6 @@ class BudgetItem extends Component {
           />
         </td>
       </tr>
-      // <div className="budget-item">
-      //   <input
-      //     className="item-detail budget-item-name"
-      //     type="text"
-      //     name="subcategory_name"
-      //     value={this.state.subcategory_name}
-      //     placeholder={this.state.subcategory_name}
-      //     onChange={this.onChangeHandler}
-      //   />
-      //   <input
-      //     className="item-detail amount budgeted"
-      //     type="text"
-      //     name="budget_amount"
-      //     value={this.state.budget_amount}
-      //     placeholder={this.state.budget_amount}
-      //     onChange={this.onChangeDollarHandler}
-      //   />
-      //   <input
-      //     className="item-detail amount actual"
-      //     type="text"
-      //     name="actual_amount"
-      //     value={this.state.actual_amount}
-      //     placeholder={this.state.actual_amount}
-      //     onChange={this.onChangeDollarHandler}
-      //   />
-      // </div>
     );
   }
 }

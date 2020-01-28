@@ -1,2 +1,2 @@
-export { login } from "./auth";
+export { login, authValidate } from "./auth";
 export { fetchBudgets, getSingleBudget } from "./budget";

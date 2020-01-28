@@ -28,6 +28,12 @@ export const login = credentials => {
             error: body.error
           });
         } else {
+          const userData = {
+            userId: body.id,
+            username: body.username,
+            roleId: body.role_id
+          };
+          sessionStorage.setItem("userData", JSON.stringify(userData));
           return dispatch({
             type: actionTypes.AUTH_SUCCESS,
             userData: body
@@ -35,5 +41,15 @@ export const login = credentials => {
         }
       })
       .catch(error => console.error(error));
+  };
+};
+
+export const authValidate = () => {
+  return dispatch => {
+    const checkLogIn = sessionStorage.getItem("userData");
+    return dispatch({
+      type: actionTypes.AUTH_VALIDATE,
+      userData: checkLogIn
+    });
   };
 };

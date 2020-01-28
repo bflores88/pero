@@ -22,3 +22,34 @@ export const checkValidity = (value, rules) => {
 
   return isValid;
 };
+
+export const numberFormatter = event => {
+  let newNumber = event.target.value;
+
+  if (!newNumber || newNumber === "-") {
+    return {
+      str: newNumber,
+      int: 0
+    };
+  }
+
+  if (
+    !/^-?\d*[.,]?\d*$/.test(parseFloat(event.target.value.replace(/,/g, "")))
+  ) {
+    newNumber = event.target.value
+      .split("")
+      .filter(char => char !== event.key)
+      .join("");
+  } else {
+    newNumber = parseFloat(event.target.value.replace(/,/g, ""))
+      .toFixed(2)
+      .toLocaleString("en-US", "currency");
+  }
+
+  const newNumObj = {
+    str: newNumber,
+    int: parseFloat(newNumber.replace(/,/g, ""))
+  };
+
+  return newNumObj;
+};

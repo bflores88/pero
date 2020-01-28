@@ -3,6 +3,7 @@
   min-height: 300px;
   min-width: 500px;
   max-width: 550px;
+  margin-bottom: 80px;
 
   h3 {
     margin-top: 0px;
@@ -24,4 +25,27 @@
 .budget-description {
   font-size: 1.2rem;
   width: 100%;
+}
+
+.new-category-div {
+  margin-top: 10px;
+
+  .new-category-btn {
+    font-size: 2rem;
+  }
+}
+
+.new {
+  margin-top: 15px;
+  width: 100%;
+  padding: 3px 5px;
+  border: none;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: transparent;
+
+  :focus {
+    outline: none;
+  }
 }

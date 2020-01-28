@@ -35,6 +35,10 @@ const authSuccess = (state, action) => {
   return updateObject(state, updatedData);
 };
 
+const authValidate = (state, action) => {
+  return updateObject(state, action.userData);
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -43,6 +47,8 @@ const reducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_SUCCESS:
       return authSuccess(state, action);
+    case actionTypes.AUTH_VALIDATE:
+      return authValidate(state, action);
     default:
       return state;
   }

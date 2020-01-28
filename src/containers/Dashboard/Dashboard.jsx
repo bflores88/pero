@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./Dashboard.scss";
 
-import Budget from "../Budget";
-
 class Dashboard extends Component {
   state = {};
 
@@ -29,8 +27,8 @@ class Dashboard extends Component {
     if (this.state.budgets) {
       budgets = this.state.budgets.map(budget => {
         return (
-          <li>
-            <Link key={budget.budget_id} to={`/budgets/${budget.budget_id}`}>
+          <li key={budget.id}>
+            <Link key={budget.id} to={`/budgets/${budget.id}`}>
               {budget.budget_name}
             </Link>
           </li>

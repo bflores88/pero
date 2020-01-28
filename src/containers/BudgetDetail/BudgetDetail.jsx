@@ -12,11 +12,15 @@ class BudgetDetail extends Component {
     this.props.getBudget(this.props.match.params.id);
   }
   render() {
-    let render = <h1>Loading</h1>;
+    let render = <h1>Budget Detail</h1>;
+
+    if (this.props.isLoading) {
+      render = <h2>Loading...</h2>;
+    }
     if (this.props.budgetDetail) {
       render = <Budget budget={this.props.budgetDetail[0]} />;
     }
-    console.log(this.props.budgetDetail);
+
     return <>{render}</>;
   }
 }

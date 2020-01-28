@@ -21,11 +21,11 @@ const fetchBudgetsSuccess = (state, action) => {
 };
 
 const singleBudget = (state, action) => {
-  const allBudgets = state.budgets;
-  const singleBudget = allBudgets.filter(budget => {
-    return budget.budget_id === parseInt(action.budgetId);
+  console.log(action);
+  return updateObject(state, {
+    loading: false,
+    singleBudget: action.singleBudget
   });
-  return updateObject(state, { loading: false, singleBudget: singleBudget });
 };
 
 const reducer = (state = initialState, action) => {

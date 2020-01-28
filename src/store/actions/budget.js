@@ -9,7 +9,7 @@ export const fetchBudgetsStart = () => {
 export const fetchBudgets = () => {
   return dispatch => {
     dispatch(fetchBudgetsStart());
-    return fetch(`/api/ledger`)
+    return fetch(`/api/budgets`)
       .then(response => {
         if (response.status !== 200) {
           return { error: "Internal server error." };
@@ -37,9 +37,29 @@ export const fetchBudgets = () => {
 
 export const getSingleBudget = budgetId => {
   return dispatch => {
-    return dispatch({
-      type: actionTypes.SINGLE_BUDGET,
-      budgetId: budgetId
-    });
+    dispatch(fetchBudgetsStart());
+    return fetch(`/api/ledger/${budgetId}`)
+      .then(response => {
+        if (response.status !== 200) {
+          return { error: "Internal server error." };
+        }
+        return response.json();
+      })
+      .then(budget => {
+        console.log(budget);
+        if (budget.error) {
+          return dispatch({
+            type: actionTypes.FETCH_BUDGETS_FAIL,
+            error: budget.error
+          });
+        }
+        return dispatch({
+          type: actionTypes.SINGLE_BUDGET,
+          singleBudget: budget
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 };

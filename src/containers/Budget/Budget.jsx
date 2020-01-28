@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "./Budget.scss";
 
-import { updateObject } from "../../shared/utility";
-
 import BudgetCategory from "./BudgetCategory";
 
 class Budget extends Component {
@@ -10,7 +8,8 @@ class Budget extends Component {
     budget_id: 0,
     budget_name: "",
     description: "",
-    is_shared: true
+    is_shared: true,
+    categories: []
   };
 
   componentDidMount() {
@@ -18,7 +17,8 @@ class Budget extends Component {
       budget_id: this.props.budget.budget_id,
       budget_name: this.props.budget.budget_name,
       description: this.props.budget.description,
-      is_shared: this.props.budget.is_shared
+      is_shared: this.props.budget.is_shared,
+      categories: this.props.budget.categories
     };
 
     this.setState(updatedState);
@@ -30,7 +30,8 @@ class Budget extends Component {
         budget_id: this.props.budget.budget_id,
         budget_name: this.props.budget.budget_name,
         description: this.props.budget.description,
-        is_shared: this.props.budget.is_shared
+        is_shared: this.props.budget.is_shared,
+        categories: this.props.budget.categories
       };
 
       this.setState(updatedState);
@@ -43,13 +44,23 @@ class Budget extends Component {
     });
   };
 
+  onAddCategory = e => {
+    e.preventDefault();
+    let newCategories = [...this.state.categories];
+    newCategories.push({
+      category: { category_name: "new category" }
+    });
+
+    this.setState(prevState => ({
+      categories: newCategories
+    }));
+  };
+
   render() {
     let categories = null;
-    if (this.props.budget) {
-      categories = this.props.budget.categories.map(category => {
-        return (
-          <BudgetCategory key={category.category_id} category={category} />
-        );
+    if (this.state.categories) {
+      categories = this.state.categories.map((category, idx) => {
+        return <BudgetCategory key={idx} category={category} />;
       });
     }
     return (
@@ -75,6 +86,11 @@ class Budget extends Component {
           />
         </summary>
         {categories}
+        <div className="new-category-div">
+          <button onClick={this.onAddCategory} className="new new-category-btn">
+            + new category
+          </button>
+        </div>
       </div>
     );
   }
